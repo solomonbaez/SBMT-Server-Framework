@@ -9,19 +9,18 @@ use std::{
 use pool::ThreadPool;
 
 fn main() {
-    
-    // listen for TCP connections at addr
     let listener = TcpListener::bind("127.0.0.1:7878").unwrap();
     let pool = ThreadPool::new(4);
 
-    // process connections
-    for stream in listener.incoming() {
+    for stream in listener.incoming().take(4) {
         let stream = stream.unwrap();
-        // perform up to three concurrent tasks
+
         pool.execute(|| {
             handle_connection(stream);
         });
     }
+
+    println!("Server shutting down...")
 }
 
 fn handle_connection(mut stream: TcpStream) {
