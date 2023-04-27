@@ -5,3 +5,10 @@ version = 3
 [[package]]
 name = "hello"
 version = "0.1.0"
+dependencies = [
+ "pool",
+]
+
+[[package]]
+name = "pool"
+version = "0.1.0"
